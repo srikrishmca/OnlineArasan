@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xct:Popup xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit" 
+             x:Class="OnlineArasan.Views.Popups.ContactInfo"  Size="360,650">
+    <Grid Padding="20" RowDefinitions="60,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto">
+        <Label Grid.Row="0" Text="Add delivery address" BackgroundColor="{StaticResource Primary}"
+               TextColor="{StaticResource TextColour}"  HorizontalTextAlignment="Center"  VerticalTextAlignment="Center"/>
+        <Entry Grid.Row="1" Text="{Binding Customer.CustomerName}" Visual="Material" Placeholder="Name(Required)*" MaxLength="50"/>
+        <Entry Grid.Row="2" Text="{Binding Customer.MobileNo}" Visual="Material" Placeholder="Phone number(Required)*" MaxLength="10"/>
+        <Entry Grid.Row="3" Text="{Binding Customer.Address1}" Visual="Material" Placeholder="House No., Building Name(Required)*"/>
+        <Entry Grid.Row="4" Text="{Binding Customer.Address2}" Visual="Material" Placeholder="Road name, Colony(Required)*"/>
+        <Entry Grid.Row="5" Text="{Binding Customer.Area}" Visual="Material" Placeholder="Area"/>
+        <Entry Grid.Row="6" Text="{Binding Customer.City}" Visual="Material" Placeholder="City"/>
+        <Entry Grid.Row="7" Text="{Binding Customer.Pincode}" Visual="Material" Placeholder="PinCode" MaxLength="6" />
+        <Grid Grid.Row="8" ColumnDefinitions="*,*">
+            <Button Grid.Column="0" Text="Save Address" BackgroundColor="#FF8C00"  Clicked="BtnSave_Clicked"/>
+            <Button Grid.Column="1" Text="Cancel" BackgroundColor="Red" Clicked="BtnCancel_Clicked"/>
+        </Grid>
+        
+    </Grid>
+     
+</xct:Popup>

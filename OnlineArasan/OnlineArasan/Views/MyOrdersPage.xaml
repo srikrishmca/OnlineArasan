@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:PanCake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             x:Class="OnlineArasan.Views.MyOrdersPage" Title="My Orders">
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="White">
+
+            <ListView VerticalScrollBarVisibility="Never"   HasUnevenRows="True"
+                                ItemsSource="{Binding OrderItemSource}" 
+                                x:Name="MyCollectionView">
+                
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid Padding="8"  RowDefinitions="Auto,100,Auto,Auto,Auto,Auto">
+                                <Label  Grid.Row="0" Text="{Binding OrderDateTime,StringFormat='Order Date : {0: dd MMMM yyyy}'}" HorizontalTextAlignment="Center"/>
+                                <PanCake:PancakeView CornerRadius="10" Grid.Row="1" >
+                                    <Image Source="{Binding ProductImage}" Aspect="AspectFit" HeightRequest="120" />
+                                </PanCake:PancakeView>
+                                <Label Text="{Binding ProductName,StringFormat='Product Name : {0}'}"  HorizontalTextAlignment="Center" Grid.Row="2" TextColor="Black"/>
+                                <Label Text="{Binding Price,StringFormat='Price : {0}'}"  HorizontalTextAlignment="Center" Grid.Row="3" TextColor="Black"/>
+                                <Label Text="{Binding Quantity,StringFormat='Quantity : {0}'}"  HorizontalTextAlignment="Center" Grid.Row="4" TextColor="Black"/>
+                                <Label Text="{Binding Delivered,StringFormat='Delivered : {0}'}"  HorizontalTextAlignment="Center" Grid.Row="5" TextColor="Black"/>
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.Triggers>
+                    <DataTrigger TargetType="ListView" Binding="{Binding IsEmpty}" Value="True">
+                        <Setter Property="IsVisible" Value="False" />
+                    </DataTrigger>
+                    <DataTrigger TargetType="ListView" Binding="{Binding IsEmpty}" Value="False">
+                        <Setter Property="IsVisible" Value="True" />
+                    </DataTrigger>
+                </ListView.Triggers>
+            </ListView>
+            <Label Text="{Binding ErrorMessage}"  Padding="0,10"
+                    TextColor="Red"
+                   HorizontalTextAlignment="Center"  VerticalTextAlignment="Start" 
+                   IsVisible="{Binding IsEmpty}"></Label>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

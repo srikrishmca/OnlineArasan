@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:PanCake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             x:Class="OnlineArasan.Views.MyCartPage" Title="My Cart">
+    
+    <ContentPage.Content>
+
+        <StackLayout BackgroundColor="White" Padding="10">
+            <Grid RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="Auto,*" Padding="5" RowSpacing="10" BindingContext="{Binding Customer}" >
+                <Label Grid.Row="0" Grid.Column="0" Text="Deliver to"  TextColor="Black"/>
+                <Label Grid.Row="0" Grid.Column="1" Text="{Binding CustomerName,Mode=TwoWay}" TextColor="Gray"/>
+                <Label Grid.Row="1" Grid.ColumnSpan="2" TextColor="Gray">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="{Binding Address1,Mode=TwoWay}"/>
+                            <Span Text=" "/>
+                            <Span Text="{Binding Address2,Mode=TwoWay}"/>
+                            <Span Text=" "/>
+                            <Span Text="{Binding Area,Mode=TwoWay}"/>
+                            <Span Text=" "/>
+                            <Span Text="{Binding City,Mode=TwoWay}"/>
+                            <Span Text=" "/>
+                            <Span Text="{Binding Pincode,Mode=TwoWay}"/>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                <BoxView HeightRequest="1" BackgroundColor="Gray" Grid.Row="2" Grid.ColumnSpan="2"/>
+            </Grid>
+            <StackLayout BackgroundColor="White">
+
+                <CollectionView VerticalScrollBarVisibility="Never"  
+                                ItemsSource="{Binding ProductItemSource}" 
+                                x:Name="MyCollectionView" SelectionMode="Single">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Padding="8"  RowDefinitions="100,Auto,Auto,Auto">
+                                <PanCake:PancakeView CornerRadius="10" Grid.Row="0" >
+                                    <Image Source="{Binding ProductImage}" Aspect="AspectFit" HeightRequest="120" />
+                                </PanCake:PancakeView>
+                                <Label Text="{Binding ProductName,StringFormat='Product Name : {0}'}"  HorizontalTextAlignment="Center" Grid.Row="1" TextColor="Black"/>
+                                <Label Text="{Binding Price,StringFormat='Price : {0}'}"  HorizontalTextAlignment="Center" Grid.Row="2" TextColor="Black"/>
+                                <Label Text="{Binding Quantity,StringFormat='Quantity : {0}'}"  HorizontalTextAlignment="Center" Grid.Row="3" TextColor="Black"/>
+
+                                
+
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                    <CollectionView.Triggers>
+                        <DataTrigger TargetType="CollectionView" Binding="{Binding IsEmpty}" Value="True">
+                            <Setter Property="IsVisible" Value="False" />
+                        </DataTrigger>
+                        <DataTrigger TargetType="CollectionView" Binding="{Binding IsEmpty}" Value="False">
+                            <Setter Property="IsVisible" Value="True" />
+                        </DataTrigger>
+                    </CollectionView.Triggers>
+                </CollectionView>
+                <Label Text="{Binding ErrorMessage}"  Padding="0,10"
+                    TextColor="Red"
+                   HorizontalTextAlignment="Center"  VerticalTextAlignment="Start" 
+                   IsVisible="{Binding IsEmpty}"></Label>
+
+            </StackLayout>
+            <Grid  ColumnDefinitions="*,*">
+                <Button Grid.Column="0" Text="Confirm Order" BackgroundColor="#FF8C00"  Clicked="BtnSave_Clicked"/>
+                <Button Grid.Column="1" Text="Cancel" BackgroundColor="Red" Clicked="BtnCancel_Clicked"/>
+            </Grid>
+        </StackLayout>
+        
+    </ContentPage.Content>
+</ContentPage>

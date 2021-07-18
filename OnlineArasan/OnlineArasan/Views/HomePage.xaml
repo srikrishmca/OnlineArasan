@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:PanCake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             x:Class="OnlineArasan.Views.HomePage" Title="Lingesh Furnitures">
+    <ContentPage.Content>
+        <StackLayout>
+            <RefreshView IsRefreshing="{Binding IsRefreshing}"
+             Command="{Binding RefreshCommand}">
+                <Grid Padding="10" RowSpacing="5" BackgroundColor="White" RowDefinitions="Auto,Auto,Auto,Auto">
+                    <PanCake:PancakeView CornerRadius="2" BackgroundColor="{StaticResource Primary}" Grid.Row="0" HeightRequest="40">
+                        <Label Text="பொருளின் வகையை தேர்வு செய்க" TextColor="{StaticResource TextColour}" Padding="10,0,0,0" HorizontalOptions="Start" VerticalTextAlignment="Center"/>
+                    </PanCake:PancakeView>
+                    <!--#region Display List of Items-->
+                    <CollectionView VerticalScrollBarVisibility="Never" Grid.Row="1" ItemSizingStrategy="MeasureFirstItem" 
+                            HeightRequest="{Binding CollectionViewHeight}"
+                                ItemsSource="{Binding CategoryItemSource}" 
+                                x:Name="MyCollectionView" SelectionMode="Single"
+                               >
+                        <CollectionView.ItemsLayout>
+                            <GridItemsLayout Orientation="Vertical" Span="4" />
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Padding="8" HeightRequest="120" RowDefinitions="Auto,Auto">
+                                    <PanCake:PancakeView CornerRadius="10" Grid.Row="0" >
+                                        <Image Source="{Binding CategoryImage}" Aspect="AspectFill"/>
+
+                                    </PanCake:PancakeView>
+                                    <Label Text="{Binding CategoryName}"  HorizontalTextAlignment="Center" Grid.Row="1" TextColor="Black"/>
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer  Tapped="TapGestureRecognizer_Tapped"  />
+                                    </Grid.GestureRecognizers>
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                        <CollectionView.Triggers>
+                            <DataTrigger TargetType="CollectionView" Binding="{Binding IsEmpty}" Value="True">
+                                <Setter Property="IsVisible" Value="False" />
+                            </DataTrigger>
+                            <DataTrigger TargetType="CollectionView" Binding="{Binding IsEmpty}" Value="False">
+                                <Setter Property="IsVisible" Value="True" />
+                            </DataTrigger>
+                        </CollectionView.Triggers>
+                    </CollectionView>
+                    <Label Grid.Row="0" Padding="0,10" Text="No records found" IsVisible="{Binding IsEmpty}" 
+                   TextColor="Red" HorizontalTextAlignment="Center"/>
+                    <!--#endregion-->
+                    <PanCake:PancakeView CornerRadius="2" BackgroundColor="{StaticResource Primary}" Grid.Row="2" HeightRequest="40">
+                        <Label Text="எங்களைப் பற்றி" TextColor="{StaticResource TextColour}" Padding="10,0,0,0" HorizontalOptions="Start" VerticalTextAlignment="Center"/>
+                    </PanCake:PancakeView>
+                    <PanCake:PancakeView CornerRadius="2" BackgroundColor="#fe6954" Grid.Row="3" HeightRequest="140">
+                        <Label Text="It is our belief that when you purchase a piece of furniture you are creating an experience, a memory. And it is these experiences we strive to create for our valuable customers.&#10;&#13;We have received immense love from them and we strive to bring them new experiences everyday." 
+                           TextColor="White" Padding="10,0,0,0" HorizontalOptions="Start" VerticalTextAlignment="Center"/>
+                    </PanCake:PancakeView>
+                </Grid>
+            </RefreshView>
+        </StackLayout>
+       
+    </ContentPage.Content>
+</ContentPage>

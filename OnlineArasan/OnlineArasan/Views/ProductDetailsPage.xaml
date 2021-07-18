@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="OnlineArasan.Views.ProductDetailsPage">
+    <NavigationPage.TitleView>
+            <Image Source="cart_white.png" HeightRequest="22" WidthRequest="22" Margin="0,0,10,0" HorizontalOptions="End" >
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding GotToCartCommand}"/>
+                </Image.GestureRecognizers>
+            </Image>
+      </NavigationPage.TitleView>
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="White" Padding="5">
+            <Grid RowDefinitions="Auto,Auto,Auto" BindingContext="{Binding SelectedProduct}">
+                <Image Grid.Row="0" Source="{Binding ImageName}" HeightRequest="200"/>
+                <Label Text="{Binding ProductName,StringFormat='Product Name : {0}'}"  HorizontalTextAlignment="Center" Grid.Row="1" TextColor="Black"/>
+                <Label Text="{Binding Price,StringFormat='Price : {0}'}"  HorizontalTextAlignment="Center" Grid.Row="2" TextColor="Black"/>
+            </Grid>
+            <Grid ColumnDefinitions="50*,50*" Padding="10">
+
+                <StackLayout BackgroundColor="{StaticResource Primary}" Orientation="Horizontal" >
+                    <Image
+                        Margin="40,0,0,0"
+                        Aspect="AspectFit"
+                        HeightRequest="22"
+                        Source="cart_white"
+                        WidthRequest="22" />
+                    <Label  Grid.Column="1" VerticalTextAlignment="Center"
+                            FontFamily="FontMontserratSemiBold"
+                            FontSize="12"
+                            Text="{Binding ItemsAddedText}"
+                            TextColor="White" />
+                            
+                        
+                    </StackLayout>
+                
+                <Button Grid.Column="1" Text="ADD TO CART" 
+                         Clicked="ButtonAddToCart_Clicked"
+                        />
+            </Grid>
+           
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:behaviours="clr-namespace:OnlineArasan.Behaviours"
+             x:Class="OnlineArasan.Views.CustomerInfo">
+    <ContentPage.Content>
+        <ScrollView>
+            <Grid Padding="20" RowDefinitions="60,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto">
+                <Label Grid.Row="0" Text="Add delivery address" BackgroundColor="{StaticResource Primary}"
+               TextColor="{StaticResource TextColour}"  HorizontalTextAlignment="Center"  VerticalTextAlignment="Center"/>
+                <Entry Grid.Row="1" Text="{Binding Customer.MobileNo}" Visual="Material"  
+                       Keyboard="Numeric" 
+                       Placeholder="Phone number(Required)*" MaxLength="10">
+                    <Entry.Behaviors>
+                        <behaviours:NumericValidationBehavior />
+                        <xct:EventToCommandBehavior  EventName="Unfocused"  Command="{Binding EntryUnfocused}" />
+                    </Entry.Behaviors>
+                    
+                </Entry>
+                <Entry Grid.Row="2" Text="{Binding Customer.CustomerName,Mode=TwoWay}" Visual="Material" Placeholder="Name(Required)*" MaxLength="50">
+                    
+                </Entry>
+                <Entry Grid.Row="3" Text="{Binding Customer.Address1,Mode=TwoWay}" Visual="Material" Placeholder="House No., Building Name(Required)*">
+                    
+                </Entry>
+                
+                <Entry Grid.Row="4" Text="{Binding Customer.Address2,Mode=TwoWay}" Visual="Material" Placeholder="Road name, Colony(Required)*"/>
+                <Entry Grid.Row="5" Text="{Binding Customer.Area,Mode=TwoWay}" Visual="Material" Placeholder="Area"/>
+                <Entry Grid.Row="6" Text="{Binding Customer.City,Mode=TwoWay}" Visual="Material" Placeholder="City"/>
+                <Entry Grid.Row="7" Text="{Binding Customer.Pincode,Mode=TwoWay}" Visual="Material" Placeholder="PinCode"
+                      Keyboard="Numeric" MaxLength="6">
+                    <Entry.Behaviors>
+                        <behaviours:NumericValidationBehavior />
+                    </Entry.Behaviors>
+                </Entry>
+                <Grid Grid.Row="8" ColumnDefinitions="*,*">
+                    <Button Grid.Column="0" Text="Save Address" BackgroundColor="#FF8C00"  Clicked="BtnSave_Clicked"/>
+                    <Button Grid.Column="1" Text="Cancel" BackgroundColor="Red" Clicked="BtnCancel_Clicked"/>
+                </Grid>
+
+            </Grid>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:PanCake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             x:Class="OnlineArasan.Views.ProductPage"  Title="{Binding PageTitle}" >
+    
+    <ContentPage.Content>
+        <StackLayout>
+            <RefreshView IsRefreshing="{Binding IsRefreshing}"
+             Command="{Binding RefreshCommand}">
+                <StackLayout BackgroundColor="White">
+
+                    <CollectionView VerticalScrollBarVisibility="Never"  
+                                ItemsSource="{Binding ProductItemSource}" 
+                                x:Name="MyCollectionView" SelectionMode="Single">
+                        <CollectionView.ItemsLayout>
+                            <GridItemsLayout Orientation="Vertical" Span="2" />
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Padding="8"  RowDefinitions="Auto,Auto,Auto">
+                                    <PanCake:PancakeView CornerRadius="10" Grid.Row="0" >
+                                        <Image Source="{Binding ImageName}" Aspect="AspectFill"/>
+                                    </PanCake:PancakeView>
+                                    <Label Text="{Binding ProductName,StringFormat='Product Name : {0}'}"  HorizontalTextAlignment="Center" Grid.Row="1" TextColor="Black"/>
+                                    <Label Text="{Binding Price,StringFormat='Price : {0}'}"  HorizontalTextAlignment="Center" Grid.Row="2" TextColor="Black"/>
+                               
+                               
+                                        <Grid.GestureRecognizers>
+                                            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                                        </Grid.GestureRecognizers>
+                                   
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                        <CollectionView.Triggers>
+                            <DataTrigger TargetType="CollectionView" Binding="{Binding IsEmpty}" Value="True">
+                                <Setter Property="IsVisible" Value="False" />
+                            </DataTrigger>
+                            <DataTrigger TargetType="CollectionView" Binding="{Binding IsEmpty}" Value="False">
+                                <Setter Property="IsVisible" Value="True" />
+                            </DataTrigger>
+                        </CollectionView.Triggers>
+                    </CollectionView>
+                    <Label Text="{Binding ErrorMessage}"  Padding="0,10"
+                    TextColor="Red"
+                   HorizontalTextAlignment="Center"  VerticalTextAlignment="Start" 
+                   IsVisible="{Binding IsEmpty}"></Label>
+
+                </StackLayout>
+            </RefreshView>
+        </StackLayout>
+     
+    </ContentPage.Content>
+</ContentPage>
