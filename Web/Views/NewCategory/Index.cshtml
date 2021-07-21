@@ -1,0 +1,31 @@
+﻿ <form asp-controller="NewCategory" asp-action="UploadFile" method="post"
+      enctype="multipart/form-data">
+     <table width="75%">
+         <tr>
+             <td> <label>Category Name</label></td>
+             <td><input type="text" name="CategoryName" /></td>
+         </tr>
+         <tr>
+             <td>Please Select Image file</td>
+             <td> <input type="file" name="file" /></td>
+         </tr>
+         <tr>
+             <td>Once you selected please submit</td>
+             <td><button type="submit">Upload File</button></td>
+         </tr>
+
+         <tr>
+             <td> Click here to go to Category List</td>
+             <td>
+                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+
+                     <ul class="navbar-nav flex-grow-1">
+                         <li class="nav-item">
+                             <a class="nav-link text-dark" asp-area="" asp-controller="Categories" asp-action="Index">Category</a>
+                         </li>
+                     </ul>
+                 </div>
+             </td>
+         </tr>
+     </table>
+</form>

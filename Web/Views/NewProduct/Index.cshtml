@@ -1,0 +1,62 @@
+﻿@using OnlineArasan.Models;
+ 
+
+<form asp-controller="NewProduct" asp-action="UploadFile" method="post"
+      enctype="multipart/form-data">
+    <table width="75%">
+        <tr>
+            <td> <label>Product Name</label></td>
+            <td><input type="text" name="ProductName" required/></td>
+        </tr>
+        <tr>
+            <td> <label>Price</label></td>
+            <td><input type="text" name="Price" required/></td>
+        </tr>
+        <tr>
+            <td> <label>Discount</label></td>
+            <td><input type="text" name="Discount" required /></td>
+        </tr>
+        <tr>
+            <td> <label>Product Image name</label></td>
+            <td><input type="text" name="ImageName" required/></td>
+        </tr>
+        <tr>
+            <td> <label>Category</label></td>
+            <td>
+                <select name="CategorySelectedId" id="CategoryList">
+                    @foreach (Category c in ViewBag.message)
+                    {
+                        <option value=@c.CategoryId>@c.CategoryName</option>
+                    }
+                </select>
+                @*<select asp-for="SelectedCategoryId" asp-items="@(new SelectList(ViewBag.message,"CategoryId","CategoryName"))"/>*@
+            </td>
+        </tr>
+        <tr>
+            <td> <label>Description</label></td>
+            <td><input type="text" name="Description" /></td>
+        </tr>
+        <tr>
+            <td>Please Select Image file</td>
+            <td> <input type="file" name="file" /></td>
+        </tr>
+        <tr>
+            <td>Once you selected please submit</td>
+            <td><button type="submit">Upload File</button></td>
+        </tr>
+
+        <tr>
+            <td> Click here to go to Product List</td>
+            <td>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="Index">Product</a>
+                        </li>
+                    </ul>
+                </div>
+            </td>
+        </tr>
+    </table>
+</form>

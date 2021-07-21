@@ -1,0 +1,72 @@
+﻿@model OnlineArasan.Models.Category
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Category</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="CategoryName" class="control-label"></label>
+                <input asp-for="CategoryName" class="form-control" />
+                <span asp-validation-for="CategoryName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CategoryImage" class="control-label"></label>
+                <input asp-for="CategoryImage" class="form-control" />
+                <span asp-validation-for="CategoryImage" class="text-danger"></span>
+            </div>
+
+            @*<div class="col-md-6">
+            <div class="form-group">
+                <label asp-for="ProfileImage" class="control-label"></label>
+                <div class="custom-file">
+                    <input asp-for="ProfileImage" class="custom-file-input" id="customFile">
+                    <label class="custom-file-label" for="customFile">Choose file</label>
+                </div>
+                <span asp-validation-for="ProfileImage" class="text-danger"></span>
+            </div>
+        </div>*@
+
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="CategoryImageFile" class="control-label"></label>
+                    <div class="custom-file">
+                        <input asp-for="CategoryImageFile" class="custom-file-input" id="CategoryImageFileId">
+                        <label class="custom-file-label" for="CategoryImageFileId">Choose file</label>
+                    </div>
+                    <span asp-validation-for="CategoryImageFile" class="text-danger"></span>
+                </div>
+            </div>
+            <br />
+            <br />
+            <br />
+            
+
+            <div class="form-group">
+                <input type="submit" value="Create" action="Post" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+@section scripts{
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script type="text/javascript">
+        // Add the following code if you want the name of the file appear on select
+        debugger    
+        $(".custom-file-input").on("change", function () {
+            var fileName = $(this).val().split("\\").pop();
+            alert($(this).siblings(".custom-file-label").addClass("selected").html);
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });</script>
+}
