@@ -7,16 +7,20 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Web.Data;
+using Web.Models;
+using Microsoft.Extensions.Options;
 
 namespace Web.Controllers
 {
     public class NewProductController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IOptions<MySettings> _configuration;
 
-        public NewProductController(ApplicationDbContext context)
+        public NewProductController(ApplicationDbContext context, IOptions<MySettings> configuration)
         {
             _context = context;
+            _configuration = configuration;
         }
         public IActionResult Index()
         {
@@ -43,8 +47,8 @@ namespace Web.Controllers
             if (file == null || file.Length == 0)
                 return Content("file not selected");
 
-            var path = Path.Combine(
-                        Directory.GetCurrentDirectory(), "wwwroot/Images/Products",
+            var path = Path.Combine(Directory.GetCurrentDirectory(),
+                        _configuration.Value.ProductImagePath,
                         file.FileName);
 
             using (var stream = new FileStream(path, FileMode.Create))
@@ -55,7 +59,7 @@ namespace Web.Controllers
                 ProductName = ProductName,
                 Price = double.Parse(Price),
                 Discount = double.Parse(Discount),
-                ImageName = @"wwwroot/Images/Products" + file.FileName,
+                ImageName = _configuration.Value.RetrieveProductImagePath + file.FileName,
                 CategoryId = int.Parse(CategorySelectedId),
                 Description = Description
             };

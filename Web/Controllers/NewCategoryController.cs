@@ -8,17 +8,20 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Web.Data;
+using Microsoft.Extensions.Configuration;
+using Web.Models;
 
 namespace Web.Controllers
 {
     public class NewCategoryController : Controller
     {
         private readonly ApplicationDbContext _context;
-         
+        private readonly IOptions<MySettings> _configuration;
 
-        public NewCategoryController(ApplicationDbContext context)
+        public NewCategoryController(ApplicationDbContext context, IOptions<MySettings> configuration)
         {
             _context = context;
+            _configuration = configuration;
         }
         public IActionResult Index()
         {
@@ -36,15 +39,15 @@ namespace Web.Controllers
             if (file == null || file.Length == 0)
                 return Content("file not selected");
 
-            var path = Path.Combine(
-                        Directory.GetCurrentDirectory(), "wwwroot/Images",
+            var path = Path.Combine(Directory.GetCurrentDirectory(),                         
+                        _configuration.Value.ImagePath,
                         file.FileName);
 
             using (var stream = new FileStream(path, FileMode.Create))
             {
                 await file.CopyToAsync(stream);
             }
-            Category category = new Category { CategoryName = CategoryName, CategoryImage = @"wwwroot/Images/"+ file.FileName };
+            Category category = new Category { CategoryName = CategoryName, CategoryImage = _configuration.Value.RetrieveImagePath + file.FileName };
              
                 _context.Add(category);
                 await _context.SaveChangesAsync();
