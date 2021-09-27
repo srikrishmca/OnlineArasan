@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"  
              xmlns:PanCake="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
              x:Class="OnlineArasan.Views.HomePage" Title="Lingesh Furnitures">
     <ContentPage.Content>
@@ -24,7 +25,9 @@
                             <DataTemplate>
                                 <Grid Padding="8" HeightRequest="120" RowDefinitions="Auto,Auto">
                                     <PanCake:PancakeView CornerRadius="10" Grid.Row="0" >
-                                        <Image Source="{Binding CategoryImage}" Aspect="AspectFill"/>
+                                        <ff:CachedImage Source="{Binding CategoryImage}" 
+                                                        LoadingPlaceholder="NoImage.jpg"
+                                                        Aspect="AspectFill"/>
 
                                     </PanCake:PancakeView>
                                     <Label Text="{Binding CategoryName}"  HorizontalTextAlignment="Center" Grid.Row="1" TextColor="Black"/>
@@ -43,7 +46,7 @@
                             </DataTrigger>
                         </CollectionView.Triggers>
                     </CollectionView>
-                    <Label Grid.Row="0" Padding="0,10" Text="No records found" IsVisible="{Binding IsEmpty}" 
+                    <Label Grid.Row="1" Padding="0,10" Text="No records found" IsVisible="{Binding IsEmpty}" 
                    TextColor="Red" HorizontalTextAlignment="Center"/>
                     <!--#endregion-->
                     <PanCake:PancakeView CornerRadius="2" BackgroundColor="{StaticResource Primary}" Grid.Row="2" HeightRequest="40">

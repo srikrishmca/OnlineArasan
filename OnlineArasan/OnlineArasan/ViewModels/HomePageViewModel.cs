@@ -84,10 +84,19 @@ namespace OnlineArasan.ViewModels
                 if (result.Result != null)
                 {
                     IsEmpty = false;
-                    if (result.Result.Count > 4)
+                    if (result.Result.Count > 12)
+                    {
+                        CollectionViewHeight = 520;
+                    }
+                    else if (result.Result.Count > 8 && result.Result.Count <= 12)
+                    {
+                        CollectionViewHeight = 390;
+                    }
+                    else if (result.Result.Count > 4 && result.Result.Count <= 8)
                     {
                         CollectionViewHeight = 260;
                     }
+
                     CategoryItemSource = new ObservableCollection<Category>(result.Result);
                 }
             }
